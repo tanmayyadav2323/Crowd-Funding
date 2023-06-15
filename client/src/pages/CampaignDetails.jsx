@@ -82,11 +82,14 @@ const CampaignDetails = () => {
             <h4 className='font-epilogue font-semibold text-[18px] text-white uppercase flex flex-col gap-4'>Donators</h4>
             <div className='mt[20px] flex flex-col gap-4'>
               {donators.length > 0 ? donators.map((item, index) => (
-                <div>
-                  Donator
+                <div key={`${index}`}
+                  className='flex justify-between items-center gap-4'
+                >
+                  <p className='font-epilogue font-normal text-[16px] text-[#b2b3bd]'>{index + 1}. {item.donator}</p>
+                  <p className='font-epilogue font-normal text-[16px] text-[#808191]'> {item.donation}</p>
                 </div>
               )) : (
-                <p className='mt-[4px] font-epilogue font-normal text-[16px] text-[#808191] leading-[26px]'>No Donators Yet! Be the first one</p>
+                <p className='mt-[4px] font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] leading-[26px] break-all'>No Donators Yet! Be the first one</p>
               )}
             </div>
 
