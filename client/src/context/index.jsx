@@ -62,6 +62,10 @@ export const StateContextProvider = ({ children }) => {
         return filteredCampaigns;
     }
 
+    const donate = async(pId, amount)=>{
+        
+    }
+
 
     return (
         <StateContext.Provider
