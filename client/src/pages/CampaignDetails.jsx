@@ -8,7 +8,7 @@ import { thirdweb } from '../assets'
 
 const CampaignDetails = () => {
   const { state } = useLocation();
-  const { donate, getDonations, contract, address } = useStateContext();
+  const { callDonate, donate, getDonations, contract, address } = useStateContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
@@ -16,8 +16,21 @@ const CampaignDetails = () => {
 
   const remainingDays = daysLeft(state.deadline);
 
-  const handleDonate = async () => {
+  const fetchDonators = async () => {
+    const data = await getDonations(state.pId);
+    console.log(data);
+    setDonators(data);
+  }
 
+  useEffect(() => {
+    if (contract) fetchDonators();
+  }, [contract, address])
+
+  const handleDonate = async () => {
+    setIsLoading(true);
+    await donate(state.pId, amount);
+    // navigate('/');
+    setIsLoading(false);
   }
 
   console.log(state);

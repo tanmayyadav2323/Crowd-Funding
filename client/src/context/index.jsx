@@ -9,6 +9,7 @@ export const StateContextProvider = ({ children }) => {
     const { contract } = useContract('0x903Cad74C9aA994D93d080232AaC622cAc2E1a78');
 
     const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
+    const { mutateAsync: donateCampaign } = useContractWrite(contract, "donateCampaign")
     const address = useAddress();
     const connect = useMetamask();
 
@@ -62,8 +63,40 @@ export const StateContextProvider = ({ children }) => {
         return filteredCampaigns;
     }
 
-    const donate = async(pId, amount)=>{
-        
+    const callDonate = async (_id, amount) => {
+        try {
+            const data = await donateCampaign({ args: [_id] }, { value: ethers.utils.parseUnits("0.1") });
+            return data;
+        } catch (err) {
+            console.error("contract call failure", err);
+        }
+    }
+
+
+    const donate = async (pId, amount) => {
+        const data = await contract.call('donateCampaign', [
+            pId
+        ],
+            {
+                value: ethers.utils.parseEther(amount),
+            },);
+        return data;
+    }
+
+    const getDonations = async (pId) => {
+        const donations = await contract.call('getDonators', pId);
+        const numberOfDonations = donations[0].length;
+
+        const parsedDonations = [];
+
+        for (let i = 0; i < numberOfDonations; i++) {
+            parsedDonations.push({
+                donator: donations[0][i],
+                donation: ethers.utils.formatEther(donations[1][i].toString())
+            })
+        }
+
+        return parsedDonations;
     }
 
 
@@ -76,7 +109,10 @@ export const StateContextProvider = ({ children }) => {
                     connect,
                     createCampaign: publishCampaign,
                     getCampaigns: getCampaigns,
-                    getUserCampaigns
+                    getUserCampaigns,
+                    donate,
+                    getDonations,
+                    callDonate
                 }
             }
         >
