@@ -4,9 +4,13 @@ import { loader } from '../assets';
 
 const Loader = () => {
   return (
-    <div className="fixed inset-0 z-10 h-screen bg-[rgba(0,0,0,0.7)] flex items-center justify-center flex-col">
-      <img src={loader} alt="loader" className="w-[100px] h-[100px] object-contain"/>
-      <p className="mt-[20px] font-epilogue font-bold text-[20px] text-white text-center">Transaction is in progress <br /> Please wait...</p>
+    <div className="fixed inset-0 z-10 h-screen bg-[rgba(0,0,0,0.7)] flex items-center justify-center">
+      <div className="bg-white rounded-md p-4">
+        <div className="w-16 h-16 bg-gray-900 animate-spin rounded-full mx-auto mb-4"></div>
+        <p className="text-center">Transaction is in progress</p>
+        <p className="text-center font-bold">Please wait...</p>
+        <p className="text-center">Progress: {progress}%</p>
+      </div>
     </div>
   )
 }

@@ -1,37 +1,22 @@
-import { createCampaign, dashboard, logout, payment, profile, withdraw } from '../assets';
+import {  faPlus, faUser, faSignOutAlt, faDashboard, faImages, faFolder, faTh }  from '@fortawesome/free-solid-svg-icons';
 
 export const navlinks = [
   {
-    name: 'dashboard',
-    imgUrl: dashboard,
+    name: 'Campaigns',
+    icon: faTh,
     link: '/',
   },
   {
-    name: 'campaign',
-    imgUrl: createCampaign,
+    name: 'Create',
+    icon: faPlus,
     link: '/create-campaign',
   },
   {
-    name: 'payment',
-    imgUrl: payment,
-    link: '/',
-    disabled: true,
-  },
-  {
-    name: 'withdraw',
-    imgUrl: withdraw,
-    link: '/',
-    disabled: true,
-  },
-  {
-    name: 'profile',
-    imgUrl: profile,
+    name: 'Profile',
+    icon: faUser,
     link: '/profile',
   },
-  {
-    name: 'logout',
-    imgUrl: logout,
-    link: '/',
-    disabled: true,
-  },
 ];
+
+
+export default navlinks;

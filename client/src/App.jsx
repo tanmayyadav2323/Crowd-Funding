@@ -5,11 +5,8 @@ import { CampaignDetails, CreateCampaign, Home, Profile } from './pages';
 
 const App = () => {
   return (
-    <div className='relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row'>
-      <div className='sm:flex hidden mr-10 relative'>
-        <SideBar />
-      </div>
-      <div className='flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5'>
+    <div className='relative sm:-8 p-4 bg-gray-900 min-h-screen flex flex-row'>
+      <div className='w-full mx-auto sm:pr-5 ml-[20px]'>
         <NavBar />
         <Routes>
           <Route path='/' element={<Home />} />
@@ -19,6 +16,8 @@ const App = () => {
         </Routes>
       </div>
     </div>
+
+
   )
 }
 

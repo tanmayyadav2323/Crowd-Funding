@@ -1,4 +1,4 @@
-import React, { useContext, createContext, Children } from "react";
+import React, { useContext, useState, createContext, Children } from "react";
 import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
 import { CreateCampaign } from "../pages";
@@ -7,11 +7,25 @@ const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
     const { contract } = useContract('0x903Cad74C9aA994D93d080232AaC622cAc2E1a78');
-
     const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
     const { mutateAsync: donateCampaign } = useContractWrite(contract, "donateCampaign")
-    const address = useAddress();
-    const connect = useMetamask();
+
+
+    const cn = useMetamask();
+    const getAdress = useAddress();
+    let [address, setAdress] = useState(getAdress);
+
+
+    const connect = () => {
+        cn;
+        setAdress(getAdress);
+    }
+
+    const logout = () => {
+        setAdress(null);
+        console.log(`this is ${address}`);
+    };
+
 
     const publishCampaign = async (form) => {
         try {
@@ -118,7 +132,8 @@ export const StateContextProvider = ({ children }) => {
                     getUserCampaigns,
                     donate,
                     getDonations,
-                    callDonate
+                    callDonate,
+                    logout
                 }
             }
         >
