@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CustomButton } from './';
 import { useStateContext } from '../context';
@@ -9,12 +9,17 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState('Campaigns');
   const [toggleDrawer, setToggleDrawer] = useState(false);
-  const { connect, address, logout } = useStateContext();
+  const { connect, address } = useStateContext();
+  const [newaddress, setnewaddress] = useState(address);
 
   const handleClick = (link) => {
     setIsActive(link.name);
     navigate(link.link);
   };
+
+  const handleAddress = (val) => {
+    setnewaddress(val);
+  }
 
   return (
     <nav>
@@ -34,11 +39,21 @@ const NavBar = () => {
         </ul>
         <div className='flex'>
           <CustomButton btnType="button"
-            title={address ? 'Log Out' : 'Connect'}
+            title={newaddress ? 'Log Out' : 'Connect'}
             styles={'bg-[#8c6dfc]'}
             handleClick={() => {
-              if (address) logout();
-              else connect();
+              if (newaddress) {
+                handleAddress(null);
+              }
+              else {
+                try {
+                  connect();
+                  handleAddress(address);
+                }
+                catch (error) {
+                  alert(error);
+                }
+              }
             }}
           />
         </div>
@@ -76,8 +91,8 @@ const NavBar = () => {
               title={address ? 'Log Out' : 'Connect'}
               styles={'bg-[#8c6dfc]'}
               handleClick={() => {
-                if (address) logout();
-                else connect();
+                // if (address) logout();
+                // else connect();
               }}
             />
           </div>

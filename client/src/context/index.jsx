@@ -1,5 +1,5 @@
 import React, { useContext, useState, createContext, Children } from "react";
-import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
+import { useAddress, useContract, useMetamask, useContractWrite} from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
 import { CreateCampaign } from "../pages";
 
@@ -11,20 +11,19 @@ export const StateContextProvider = ({ children }) => {
     const { mutateAsync: donateCampaign } = useContractWrite(contract, "donateCampaign")
 
 
-    const cn = useMetamask();
-    const getAdress = useAddress();
-    let [address, setAdress] = useState(getAdress);
+    const connect = useMetamask();
+    const address = useAddress();
 
 
-    const connect = () => {
-        cn;
-        setAdress(getAdress);
-    }
+    // const connect = () => {
+    //     cn;
+    //     setAdress(getAdress);
+    // }
 
-    const logout = () => {
-        setAdress(null);
-        console.log(`this is ${address}`);
-    };
+    // const logout = () => {
+    //     setAdress(null);
+    //     console.log(`this is ${address}`);
+    // };
 
 
     const publishCampaign = async (form) => {
@@ -133,7 +132,6 @@ export const StateContextProvider = ({ children }) => {
                     donate,
                     getDonations,
                     callDonate,
-                    logout
                 }
             }
         >
